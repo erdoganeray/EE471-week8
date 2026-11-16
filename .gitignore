@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+# downloaded MediaPipe model files (re-fetch with task1-mediapipe/download_models.py)
+task1-mediapipe/models/*.task
+task1-mediapipe/models/*.tflite
+# large screen recordings: upload separately (Drive/YouTube) and link in README
+recordings/*.avi
+recordings/*.mp4
