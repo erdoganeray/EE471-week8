@@ -13,4 +13,4 @@ Screen recordings live in [`recordings/`](recordings) (see links there).
 ## Status
 - [x] Task 1 (22 scripts, recordings still to do)
 - [x] Task 2 (verified in Docker, recordings still to do)
-- [ ] Task 3
+- [x] Task 3 (verified in Docker, recordings still to do)
