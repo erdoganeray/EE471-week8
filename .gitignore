@@ -13,3 +13,4 @@ recordings/*.mp4
 task1-mediapipe/models/*.litertlm
 task1-mediapipe/models/*.part
 *.log
+task1-mediapipe/models/cache/

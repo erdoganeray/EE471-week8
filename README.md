@@ -11,6 +11,6 @@ IYTE EE 471 Modern Software Development Practices and Technologies, 16/11/2026.
 Screen recordings live in [`recordings/`](recordings) (see links there).
 
 ## Status
-- [ ] Task 1
-- [ ] Task 2
+- [x] Task 1 (22 scripts, recordings still to do)
+- [x] Task 2 (verified in Docker, recordings still to do)
 - [ ] Task 3
