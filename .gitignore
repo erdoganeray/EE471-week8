@@ -10,3 +10,6 @@ task1-mediapipe/models/*.tflite
 # large screen recordings: upload separately (Drive/YouTube) and link in README
 recordings/*.avi
 recordings/*.mp4
+task1-mediapipe/models/*.litertlm
+task1-mediapipe/models/*.part
+*.log
