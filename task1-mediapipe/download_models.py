@@ -57,6 +57,7 @@ MODELS = {
 
 
 def fetch(url: str, dest: Path, retries: int) -> bool:
+    # download into <file>.part; if the connection drops, retry and continue from the bytes we already have
     part = dest.with_suffix(dest.suffix + ".part")
     for attempt in range(1, retries + 1):
         have = part.stat().st_size if part.exists() else 0
@@ -111,6 +112,7 @@ def main() -> int:
     a = ap.parse_args()
 
     MODELS_DIR.mkdir(exist_ok=True)
+    # decide which models to download: --only NAME, or everything under --max-mb (or all with --large)
     if a.only:
         unknown = [n for n in a.only if n not in MODELS]
         if unknown:
@@ -128,6 +130,7 @@ def main() -> int:
             print(f"{st}{n:24s} {g:7s} ~{mb:4d} MB  {f}")
         return 0
 
+    # download one by one; finished files are skipped, so re-running is always safe
     failed = []
     for n in names:
         g, fname, url, mb = MODELS[n]

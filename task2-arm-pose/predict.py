@@ -9,6 +9,7 @@ from pathlib import Path
 
 import mediapipe as mp
 
+# the pose model sits next to this script (so Docker needs no download)
 MODEL = Path(__file__).parent / "pose_landmarker_lite.task"
 
 # MediaPipe pose landmark indices
@@ -33,15 +34,16 @@ def detect_pose(image_path: str):
 def is_raised(lm, shoulder: int, wrist: int, hip: int) -> bool:
     """Arm is raised if the wrist is clearly above the shoulder (image y grows downward)."""
     s, w, h = lm[shoulder], lm[wrist], lm[hip]
-    if min(s.visibility, w.visibility) < MIN_VISIBILITY:
+    if min(s.visibility, w.visibility) < MIN_VISIBILITY:  # not reliably visible -> not raised
         return False
     torso = abs(h.y - s.y) or 1.0          # scale margin by body size
-    return (s.y - w.y) > RAISE_MARGIN * torso
+    return (s.y - w.y) > RAISE_MARGIN * torso  # smaller y = higher in the image
 
 
 def classify(image_path: str) -> str:
+    """Check both arms and map the result to left / right / both / None."""
     lm = detect_pose(image_path)
-    if lm is None:
+    if lm is None:                          # nobody found in the image
         return "None"
     left = is_raised(lm, L_SHOULDER, L_WRIST, L_HIP)
     right = is_raised(lm, R_SHOULDER, R_WRIST, R_HIP)
@@ -55,6 +57,7 @@ def classify(image_path: str) -> str:
 
 
 if __name__ == "__main__":
+    # command line: python predict.py <image>  -> prints one word
     if len(sys.argv) != 2:
         sys.exit("usage: python predict.py PATH-TO-INPUT-IMAGE")
     print(classify(sys.argv[1]))
